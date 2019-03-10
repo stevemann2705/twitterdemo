@@ -2,6 +2,8 @@ HELP.md
 /target/
 !.mvn/wrapper/maven-wrapper.jar
 
+src/main/resources/twitter.properties
+
 ### STS ###
 .apt_generated
 .classpath
