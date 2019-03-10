@@ -17,10 +17,6 @@ public class TwitterTemplateCreator {
         String consumerSecret = env.getProperty("stevemann2705.consumerSecret");
         String accessToken = env.getProperty("stevemann2705.accessToken");
         String accessTokenSecret = env.getProperty("stevemann2705.accessTokenSecret");
-        System.out.println(env.getProperty("stevemann2705.consumerKey"));
-        System.out.println(env.getProperty("stevemann2705.consumerSecret"));
-        System.out.println(env.getProperty("stevemann2705.accessToken"));
-        System.out.println(env.getProperty("stevemann2705.accessTokenSecret"));
         Preconditions.checkNotNull(consumerKey);
         Preconditions.checkNotNull(consumerSecret);
         Preconditions.checkNotNull(accessToken);
@@ -28,7 +24,6 @@ public class TwitterTemplateCreator {
 
         TwitterTemplate twitterTemplate =
                 new TwitterTemplate(consumerKey, consumerSecret, accessToken, accessTokenSecret);
-        System.out.println(twitterTemplate.userOperations().getScreenName());
         return twitterTemplate;
     }
 }
