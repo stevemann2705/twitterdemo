@@ -2,6 +2,7 @@ package in.stevemann.twitterdemo;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.social.twitter.api.Tweet;
 import org.springframework.social.twitter.api.Twitter;
 import org.springframework.stereotype.Service;
 
@@ -15,5 +16,15 @@ public class TwitterService {
         } catch (RuntimeException ex) {
             logger.error("Unable to tweet" + tweetText, ex);
         }
+    }
+
+    public Tweet getTweet(Twitter twitter, String tweetId) {
+        try {
+            Tweet tweet = twitter.timelineOperations().getStatus(Long.valueOf(tweetId));
+            return tweet;
+        } catch (RuntimeException ex) {
+            logger.error("Unable to get tweet:" + tweetId, ex);
+        }
+        return null;
     }
 }
