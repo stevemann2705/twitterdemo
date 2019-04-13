@@ -34,7 +34,7 @@ public class TwitterControllerTest {
     private Twitter twitter;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         MockitoAnnotations.initMocks(this);
         controller = new TwitterController(service, templateCreator);
         mock = MockMvcBuilders.standaloneSetup(controller).build();
