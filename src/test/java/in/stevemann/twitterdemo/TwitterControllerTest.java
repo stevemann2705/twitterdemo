@@ -53,7 +53,7 @@ public class TwitterControllerTest {
     }
 
     @Test
-    public void getTweet() throws Exception {
+    public void getTweet() {
         Tweet tweet = new Tweet(1L, "ss", Date.from(Instant.now()), " ", " ", 1L, 2L, " ", " ");
         when(service.getTweet(twitter, "1")).thenReturn(tweet);
 
