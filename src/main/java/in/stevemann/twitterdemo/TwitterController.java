@@ -70,7 +70,7 @@ public class TwitterController {
         return "timeline";
     }
 
-    @GetMapping("/{user}/timeline")
+    @GetMapping("usertimeline/{user}")
     public String getUserTimeline(@PathVariable String user, Model model) {
         List<Tweet> tweetList = twitterService.getUserTimeline(twitter, user);
         model.addAttribute("tweetList", tweetList);

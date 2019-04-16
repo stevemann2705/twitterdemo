@@ -119,7 +119,7 @@ public class TwitterControllerTest {
         list.add(tweet2);
         when(service.getUserTimeline(twitter, "username")).thenReturn(list);
 
-        mock.perform(get("/username/timeline"))
+        mock.perform(get("/usertimeline/username"))
                 .andExpect(status().isOk())
                 .andExpect(view().name("timeline"));
 
