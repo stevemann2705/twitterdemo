@@ -6,6 +6,8 @@ import org.springframework.social.twitter.api.Tweet;
 import org.springframework.social.twitter.api.Twitter;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class TwitterService {
     private Logger logger = LoggerFactory.getLogger(getClass());
@@ -24,6 +26,16 @@ public class TwitterService {
             return tweet;
         } catch (RuntimeException ex) {
             logger.error("Unable to get tweet:" + tweetId, ex);
+        }
+        return null;
+    }
+
+    public List<Tweet> getHomeTimeline(Twitter twitter) {
+        try {
+            List<Tweet> list = twitter.timelineOperations().getHomeTimeline();
+            return list;
+        } catch (RuntimeException ex) {
+            logger.error("Unable to get timeline:" + ex);
         }
         return null;
     }
