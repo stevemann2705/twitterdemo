@@ -39,4 +39,14 @@ public class TwitterService {
         }
         return null;
     }
+
+    public List<Tweet> getUserTimeline(Twitter twitter, String user) {
+        try {
+            List<Tweet> list = twitter.timelineOperations().getUserTimeline(user);
+            return list;
+        } catch (RuntimeException ex) {
+            logger.error("Unable to get timeline:" + ex);
+        }
+        return null;
+    }
 }

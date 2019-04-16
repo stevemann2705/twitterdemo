@@ -62,4 +62,11 @@ public class TwitterController {
         model.addAttribute("tweetList", tweetList);
         return "timeline";
     }
+
+    @RequestMapping("/{user}/timeline")
+    public String getUserTimeline(@PathVariable String user, Model model) {
+        List<Tweet> tweetList = twitterService.getUserTimeline(twitter, user);
+        model.addAttribute("tweetList", tweetList);
+        return "timeline";
+    }
 }
