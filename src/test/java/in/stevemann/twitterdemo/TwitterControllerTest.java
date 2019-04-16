@@ -51,8 +51,11 @@ public class TwitterControllerTest {
     }
 
     @Test
-    public void makeTweetWithoutExceptions() {
-        service.tweet(twitter, " ");
+    public void makeTweet() throws Exception {
+        mock.perform(get("/tweet").param("tweet", "TweetContent"))
+                .andExpect(status().isOk())
+                .andExpect(model().attributeExists("tweet"))
+                .andExpect(view().name("submitted"));
     }
 
     @Test
