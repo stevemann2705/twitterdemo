@@ -6,6 +6,7 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.social.twitter.api.Tweet;
 import org.springframework.social.twitter.api.Twitter;
+import org.springframework.social.twitter.api.TwitterProfile;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
@@ -18,8 +19,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 public class TwitterControllerTest {
 
@@ -33,7 +33,6 @@ public class TwitterControllerTest {
     @Mock
     private TwitterService service;
 
-    @Mock
     private Twitter twitter;
 
     @Before
@@ -41,6 +40,7 @@ public class TwitterControllerTest {
         MockitoAnnotations.initMocks(this);
         controller = new TwitterController(service, templateCreator);
         mock = MockMvcBuilders.standaloneSetup(controller).build();
+        twitter = templateCreator.getTwitterTemplate("stevemann2705");
     }
 
     @Test
@@ -56,9 +56,18 @@ public class TwitterControllerTest {
     }
 
     @Test
-    public void getTweet() {
+    public void getTweet() throws Exception {
+        TwitterProfile user = new TwitterProfile(1L, " ", "UserName", " ", " ", " ", " ", Date.from(Instant.now()));
         Tweet tweet = new Tweet(1L, "ss", Date.from(Instant.now()), " ", " ", 1L, 2L, " ", " ");
+        tweet.setUser(user);
+        tweet.setRetweetCount(2);
+        tweet.setFavoriteCount(3);
         when(service.getTweet(twitter, "1")).thenReturn(tweet);
+
+        mock.perform(get("/gettweet/1"))
+                .andExpect(status().isOk())
+                .andExpect(model().attributeExists("tweetText", "tweetUser", "tweetRetweetCount", "tweetFavoriteCount"))
+                .andExpect(view().name("showtweet"));
 
         Tweet tweet1 = service.getTweet(twitter, "1");
         assertNotNull(tweet1);
