@@ -35,12 +35,19 @@ public class TwitterControllerTest {
 
     private Twitter twitter;
 
+    private List<Tweet> list = new ArrayList<>();
+
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);
         controller = new TwitterController(service, templateCreator);
         mock = MockMvcBuilders.standaloneSetup(controller).build();
         twitter = templateCreator.getTwitterTemplate("stevemann2705");
+
+        Tweet tweet1 = new Tweet(1L, "ss", Date.from(Instant.now()), " ", " ", 1L, 2L, " ", " ");
+        Tweet tweet2 = new Tweet(2L, "ssss", Date.from(Instant.now()), " ", " ", 2L, 1L, " ", " ");
+        list.add(tweet1);
+        list.add(tweet2);
     }
 
     @Test
@@ -78,11 +85,6 @@ public class TwitterControllerTest {
 
     @Test
     public void getHomeTimeline() throws Exception {
-        Tweet tweet1 = new Tweet(1L, "ss", Date.from(Instant.now()), " ", " ", 1L, 2L, " ", " ");
-        Tweet tweet2 = new Tweet(2L, "ssss", Date.from(Instant.now()), " ", " ", 2L, 1L, " ", " ");
-        List<Tweet> list = new ArrayList<>();
-        list.add(tweet1);
-        list.add(tweet2);
         when(service.getHomeTimeline(twitter)).thenReturn(list);
 
         mock.perform(get("/hometimeline"))
@@ -95,11 +97,6 @@ public class TwitterControllerTest {
 
     @Test
     public void getFavorites() throws Exception {
-        Tweet tweet1 = new Tweet(1L, "ss", Date.from(Instant.now()), " ", " ", 1L, 2L, " ", " ");
-        Tweet tweet2 = new Tweet(2L, "ssss", Date.from(Instant.now()), " ", " ", 2L, 1L, " ", " ");
-        List<Tweet> list = new ArrayList<>();
-        list.add(tweet1);
-        list.add(tweet2);
         when(service.getFavorites(twitter)).thenReturn(list);
 
         mock.perform(get("/favorites"))
@@ -112,11 +109,6 @@ public class TwitterControllerTest {
 
     @Test
     public void getUserTimeline() throws Exception {
-        Tweet tweet1 = new Tweet(1L, "ss", Date.from(Instant.now()), " ", " ", 1L, 2L, " ", " ");
-        Tweet tweet2 = new Tweet(2L, "ssss", Date.from(Instant.now()), " ", " ", 2L, 1L, " ", " ");
-        List<Tweet> list = new ArrayList<>();
-        list.add(tweet1);
-        list.add(tweet2);
         when(service.getUserTimeline(twitter, "username")).thenReturn(list);
 
         mock.perform(get("/usertimeline/username"))
@@ -129,11 +121,6 @@ public class TwitterControllerTest {
 
     @Test
     public void getUserFavorites() throws Exception {
-        Tweet tweet1 = new Tweet(1L, "ss", Date.from(Instant.now()), " ", " ", 1L, 2L, " ", " ");
-        Tweet tweet2 = new Tweet(2L, "ssss", Date.from(Instant.now()), " ", " ", 2L, 1L, " ", " ");
-        List<Tweet> list = new ArrayList<>();
-        list.add(tweet1);
-        list.add(tweet2);
         when(service.getUserFavorites(twitter, "username")).thenReturn(list);
 
         mock.perform(get("/favorites/username"))
