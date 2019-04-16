@@ -56,7 +56,7 @@ public class TwitterController {
         return "showtweet";
     }
 
-    @GetMapping("/timeline")
+    @GetMapping("/hometimeline")
     public String getHomeTimeline(Model model) {
         List<Tweet> tweetList = twitterService.getHomeTimeline(twitter);
         model.addAttribute("tweetList", tweetList);
