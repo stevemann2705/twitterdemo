@@ -110,4 +110,20 @@ public class TwitterControllerTest {
         assertEquals(list.size(), listGot.size());
     }
 
+    @Test
+    public void getUserTimeline() throws Exception {
+        Tweet tweet1 = new Tweet(1L, "ss", Date.from(Instant.now()), " ", " ", 1L, 2L, " ", " ");
+        Tweet tweet2 = new Tweet(2L, "ssss", Date.from(Instant.now()), " ", " ", 2L, 1L, " ", " ");
+        List<Tweet> list = new ArrayList<>();
+        list.add(tweet1);
+        list.add(tweet2);
+        when(service.getUserTimeline(twitter, "username")).thenReturn(list);
+
+        mock.perform(get("/username/timeline"))
+                .andExpect(status().isOk())
+                .andExpect(view().name("timeline"));
+
+        List<Tweet> listGot = service.getUserTimeline(twitter, "username");
+        assertEquals(list.size(), listGot.size());
+    }
 }
