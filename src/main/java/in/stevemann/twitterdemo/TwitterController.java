@@ -63,6 +63,13 @@ public class TwitterController {
         return "timeline";
     }
 
+    @RequestMapping("/favorites")
+    public String getFavorites(Model model) {
+        List<Tweet> tweetList = twitterService.getFavorites(twitter);
+        model.addAttribute("tweetList", tweetList);
+        return "timeline";
+    }
+
     @RequestMapping("/{user}/timeline")
     public String getUserTimeline(@PathVariable String user, Model model) {
         List<Tweet> tweetList = twitterService.getUserTimeline(twitter, user);
