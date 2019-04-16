@@ -77,7 +77,7 @@ public class TwitterController {
         return "timeline";
     }
 
-    @GetMapping("/{user}/favorites")
+    @GetMapping("/favorites/{user}")
     public String getUserFavorites(@PathVariable String user, Model model) {
         List<Tweet> tweetList = twitterService.getUserFavorites(twitter, user);
         model.addAttribute("tweetList", tweetList);
