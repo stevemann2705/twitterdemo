@@ -49,4 +49,14 @@ public class TwitterService {
         }
         return null;
     }
+
+    public List<Tweet> getUserFavorites(Twitter twitter, String user) {
+        try {
+            List<Tweet> list = twitter.timelineOperations().getFavorites(user);
+            return list;
+        } catch (RuntimeException ex) {
+            logger.error("Unable to get timeline:" + ex);
+        }
+        return null;
+    }
 }
