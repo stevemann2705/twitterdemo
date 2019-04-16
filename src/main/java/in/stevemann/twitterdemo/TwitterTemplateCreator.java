@@ -12,6 +12,8 @@ public class TwitterTemplateCreator {
     @Autowired
     private Environment env;
 
+    private TwitterTemplate twitterTemplate;
+
     public Twitter getTwitterTemplate(String accountName) {
         String consumerKey = env.getProperty("stevemann2705.consumerKey");
         String consumerSecret = env.getProperty("stevemann2705.consumerSecret");
@@ -22,8 +24,11 @@ public class TwitterTemplateCreator {
         Preconditions.checkNotNull(accessToken);
         Preconditions.checkNotNull(accessTokenSecret);
 
-        TwitterTemplate twitterTemplate =
-                new TwitterTemplate(consumerKey, consumerSecret, accessToken, accessTokenSecret);
+        if (twitterTemplate == null) {
+            twitterTemplate =
+                    new TwitterTemplate(consumerKey, consumerSecret, accessToken, accessTokenSecret);
+        }
+
         return twitterTemplate;
     }
 }
