@@ -52,7 +52,6 @@ public class TwitterController {
         model.addAttribute("tweetUser", tweet.getUser().getName());
         model.addAttribute("tweetRetweetCount", tweet.getRetweetCount());
         model.addAttribute("tweetFavoriteCount", tweet.getFavoriteCount());
-        //return "redirect:" + tweet.getText().substring(tweet.getText().length() - 23);
         return "showtweet";
     }
 
